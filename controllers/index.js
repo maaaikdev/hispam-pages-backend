@@ -14,9 +14,6 @@ let listLandingPage;
 
 
 const getHtml = (req, res) => {
-    // res.render('get-html', {
-    //     listLandingPage        
-    // });
     res.json(listLandingPage);
 }
 
@@ -54,15 +51,6 @@ const saveHtmlPost = (req, res, next) => {
         return;
     }
 
-    // let newLandingPage = {
-    //     id,
-    //     name,
-    //     styles,
-    //     component
-    // };    
-    // listLandingPage.push(newLandingPage);      
-    // const json_pages = JSON.stringify(listLandingPage)
-
     // Buscar la página existente por su ID
     const existingPageIndex = listLandingPage.findIndex(page => page.id === id);
 
@@ -91,11 +79,18 @@ const saveHtmlPost = (req, res, next) => {
     res.status(200).json({ message: 'HTML guardado exitosamente' });
 }
 
+const removeHtml = (req, res, next) => {
+    const id = parseInt(req.params.id);
+    listLandingPage = listLandingPage.filter(item => item.id !== id);
+    res.json(listLandingPage);
+}
+
 module.exports = {
     index,
     listOfProducts,
     newProduct,
     saveHtmlGet,
     saveHtmlPost,
-    getHtml
+    getHtml,
+    removeHtml
 }
