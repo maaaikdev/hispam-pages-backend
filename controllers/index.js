@@ -55,15 +55,13 @@ const saveHtmlPost = (req, res, next) => {
     const existingPageIndex = listLandingPage.findIndex(page => page.id === id);
 
     if (existingPageIndex !== -1) {
-        // Si la página existe, actualízala
         listLandingPage[existingPageIndex] = {
-            ...listLandingPage[existingPageIndex], // Mantener las propiedades existentes
-            ...req.body, // Sobrescribir con las nuevas propiedades del body
+            ...listLandingPage[existingPageIndex],
+            ...req.body,
             styles,
             component
         };
     } else {
-        // Si la página no existe, añádela a la lista
         const newLandingPage = {
             id,
             name,
