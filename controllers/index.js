@@ -78,9 +78,22 @@ const saveHtmlPost = (req, res, next) => {
 }
 
 const removeHtml = (req, res, next) => {
-    const id = parseInt(req.params.id);
-    listLandingPage = listLandingPage.filter(item => item.id !== id);
-    res.json(listLandingPage);
+    const idToRemove = parseInt(req.params.id, 10);
+    const itemExists = listLandingPage.some(item => item.id === idToRemove);
+   
+    if (!itemExists) {
+        return res.status(404).json({ message: 'Item not found' });
+    }
+
+    listLandingPage = listLandingPage.filter(item => item.id !== idToRemove);
+    const json_pages = JSON.stringify(listLandingPage);
+
+    fs.writeFileSync('save-glp.json', json_pages, 'utf-8')
+
+    return res.status(200).json({
+        message: 'Item removed successfully',
+        updatedArray: listLandingPage,
+    });
 }
 
 module.exports = {
