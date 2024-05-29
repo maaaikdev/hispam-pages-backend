@@ -86,13 +86,20 @@ const removeHtml = (req, res, next) => {
 const uploadImages = (req, res) => {
     if (!req.files) {
         return res.status(400).json({ error: 'No files were uploaded.' });
-      }
+    }
     
-      const fileUrls = req.files.map(file => ({
-        url: `http://localhost:3000/uploads/${file.filename}`
-      }));
+	//FOLDRR ESPECIFICO
+	const { pageId } = req.body;
+	const fileUrls = req.files.map(file => ({
+		url: `http://localhost:3000/uploads/${pageId}/${file.filename}`
+	}));
+
+	// SIN FOLDER ESPECIFICO
+    // const fileUrls = req.files.map(file => ({
+    //     url: `http://localhost:3000/uploads/${file.filename}`
+    // }));
     
-      res.json(fileUrls);
+    res.json(fileUrls);
 };
 
 module.exports = {
