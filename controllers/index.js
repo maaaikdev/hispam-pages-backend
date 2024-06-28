@@ -91,7 +91,9 @@ const uploadImages = (req, res) => {
 	//FOLDRR ESPECIFICO
 	const { pageId } = req.body;
 	const fileUrls = req.files.map(file => ({
-		url: `http://localhost:3000/uploads/${pageId}/${file.filename}`
+		//url: `http://localhost:3000/uploads/${pageId}/${file.filename}`
+    url: `https://hispam-pages-backend.onrender.com/uploads/${pageId}/${file.filename}`
+    //https://hispam-pages-backend.onrender.com
 	}));
 
 	// SIN FOLDER ESPECIFICO
